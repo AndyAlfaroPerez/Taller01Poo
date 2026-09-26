@@ -857,8 +857,62 @@ public class Main {
 
 				}
 
-			} // #Aclaracion 
-			
+			} // Analisis estadistico
+			if (opcion == 6) {
+
+				if (!archivosCargados) {
+
+					System.out.println("Error: primero debe cargar los archivos.");
+
+				} else {
+
+					int cantidadC1 = 0;
+
+					int cantidadC2 = 0;
+
+					// Contar miembros de cada paralelo
+
+					for (int i = 0; i < cantidadMiembros; i++) {
+
+						if (miembroParalelos[i].equalsIgnoreCase("C1")) {
+
+							cantidadC1++;
+
+						}
+
+						if (miembroParalelos[i].equalsIgnoreCase("C2")) {
+
+							cantidadC2++;
+
+						}
+
+					}
+
+					int totalIntentos = cantidadSolicitudes + intentosManuales;
+
+					double porcentajeRechazo = 0;
+
+					if (totalIntentos > 0) {
+
+						porcentajeRechazo = (cantidadRechazados * 100.0) / totalIntentos;
+
+					}
+
+					System.out.println("\n--- Analisis estadistico ---");
+
+					System.out.println("Total de intentos: " + totalIntentos);
+
+					System.out.println("Total de rechazados: " + cantidadRechazados);
+
+					System.out.println("Porcentaje de rechazo: " + porcentajeRechazo + "%");
+
+					System.out.println("Miembros del paralelo C1: " + cantidadC1);
+
+					System.out.println("Miembros del paralelo C2: " + cantidadC2);
+
+				}
+
+			}
 
 		} while (opcion != 7);
 
