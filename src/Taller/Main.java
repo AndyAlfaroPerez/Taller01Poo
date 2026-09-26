@@ -532,7 +532,8 @@ public class Main {
 
 								for (int i = 0; i < cantidadAlumnos; i++) {
 
-									escribir.write(nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i]);
+									escribir.write(
+											nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i]);
 
 									escribir.newLine();
 
@@ -630,7 +631,8 @@ public class Main {
 
 								for (int i = 0; i < cantidadAlumnos; i++) {
 
-									bw.write(nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i] + "\n");
+									bw.write(nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i]
+											+ "\n");
 
 								}
 
@@ -732,7 +734,8 @@ public class Main {
 
 									for (int i = 0; i < cantidadAlumnos; i++) {
 
-										bw.write(nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i] + "\n");
+										bw.write(nombres[i] + ";" + apellidos[i] + ";" + ruts[i] + ";" + paralelos[i]
+												+ "\n");
 
 									}
 
@@ -752,7 +755,111 @@ public class Main {
 
 				}
 
+			} // Generar reportes
+			if (opcion == 5) {
+
+				if (!archivosCargados) {
+
+					System.out.println("Error: primero debe cargar los archivos.");
+
+				} else {
+
+					int version = 1;
+
+					// Buscar una version que no exista
+
+					File archivoC1 = new File("ReporteC1-V" + version + ".txt");
+
+					File archivoC2 = new File("ReporteC2-V" + version + ".txt");
+
+					File archivoRechazados = new File("Rechazados-V" + version + ".txt");
+
+					while (archivoC1.exists() || archivoC2.exists() || archivoRechazados.exists()) {
+
+						version++;
+
+						archivoC1 = new File("ReporteC1-V" + version + ".txt");
+
+						archivoC2 = new File("ReporteC2-V" + version + ".txt");
+
+						archivoRechazados = new File("Rechazados-V" + version + ".txt");
+
+					}
+
+					// Reporte C1
+
+					FileWriter fwC1 = new FileWriter(archivoC1);
+
+					BufferedWriter bwC1 = new BufferedWriter(fwC1);
+
+					for (int i = 0; i < cantidadMiembros; i++) {
+
+						if (miembroParalelos[i].equalsIgnoreCase("C1")) {
+
+							bwC1.write(miembroNombres[i] + " " + miembroApellidos[i] + " - " + miembroRuts[i]);
+
+							bwC1.newLine();
+
+						}
+
+					}
+
+					bwC1.close();
+
+					// Reporte C2
+
+					FileWriter fwC2 = new FileWriter(archivoC2);
+
+					BufferedWriter bwC2 = new BufferedWriter(fwC2);
+
+					for (int i = 0; i < cantidadMiembros; i++) {
+
+						if (miembroParalelos[i].equalsIgnoreCase("C2")) {
+
+							bwC2.write(miembroNombres[i] + " " + miembroApellidos[i] + " - " + miembroRuts[i]);
+
+							bwC2.newLine();
+
+						}
+
+					}
+
+					bwC2.close();
+
+					// Reporte de rechazados
+
+					FileWriter fwRechazados = new FileWriter(archivoRechazados);
+
+					BufferedWriter bwRechazados = new BufferedWriter(fwRechazados);
+
+					for (int i = 0; i < cantidadRechazados; i++) {
+
+						if (rechazadoRuts[i] != null && !rechazadoRuts[i].equals("")) {
+
+							bwRechazados.write("Sin nombre registrado, RUT: " + rechazadoRuts[i]);
+
+						} else {
+
+							bwRechazados.write(rechazadoNombres[i] + " " + rechazadoApellidos[i]
+									+ " - No pertenece a ningun paralelo del curso");
+
+						}
+
+						bwRechazados.newLine();
+
+					}
+
+					bwRechazados.close();
+
+					System.out.println("Reportes generados correctamente.");
+
+					System.out.println("Version: V" + version);
+
+				}
+
 			} 
+			
+
 		} while (opcion != 7);
 
 		System.out.println("Saliendo del programa...");
